@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta property="og:image" content="images/BITFRONT_logo_og.png">
+  <meta property="og:site_name" content="GitHub Pages">
+  <meta property="og:type" content="object">
+  <meta property="og:title" content="BITFRONT API Docs">
+  <meta property="og:url" content="https://bitfront-exchange.github.io/bitfront-api-docs/">
+  <meta property="og:description" content="BITFRONT, Connecting Global Crypto Trades. Using BITFRONT API, you do not have to access the BITFRONT website to check your account status, trading history, or to buy and sell crypto.">
+  <!-- <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"> -->
+  <meta name="twitter:image:src" content="images/BITFRONT_logo_og.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BITFRONT API Docs">
+  <meta name="twitter:description" content="BITFRONT, Connecting Global Crypto Trades. Using BITFRONT API, you do not have to access the BITFRONT website to check your account status, trading history, or to buy and sell crypto.">
+  
+  <!-- <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css"> -->
+  <!-- Theme: Simple -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+  <style type="text/css">
+  .sidebar-nav>ul>li>ul>li>ul>li>a:before {
+    content: '';
+  }
+  .markdown-section th {
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+  }
+  .sidebar-nav>ul>li>ul>li>ul>li.active>a:before  {
+    content: '';
+  }
+  :root {
+    --sidebar-width: 20rem;
+  }
+  </style>
+  <!-- <script src="//unpkg.com/docsify-edit-on-github@1.0.1/index.js"></script> -->
+  <!-- <script src="//unpkg.com/docsify-copy-code"></script> -->
+
+  <!-- <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css"> -->
+
+<!-- <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+<script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script> -->
+  <!-- Theme: Simple -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css"> -->
+</head>
+<body>
+
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'BITFRONT Open API documentation',
+      repo: 'https://github.com/bitfront-exchange/bitfront-api-docs',
+      loadSidebar: true,
+      subMaxLevel: 2,
+      loadNavbar: false,
+      maxLevel: 4,
+      auto2top: true,
+      autoHeader: false,
+      ext: '.md',
+      markdown: {
+        renderer: {
+          link: function() {
+            if(arguments[0].startsWith('..')){       // relativePath handler
+              splits = arguments[0].split('..')
+              currentpath = window.location.hash.split('/')
+              upcount = splits.length-1
+              currentpath.splice(currentpath.length - 1 - upcount, upcount + 1)
+              currentpath.splice(0, 1) // remove the the first #
+              arguments[0] = currentpath.join('/') + splits[splits.length-1]
+            }
+
+            // return marked.link(href, title, text)
+            return this.origin.link.apply(this, arguments);
+           // return '<a href="#/' + href.replace('.md', '') + '">' + text + '</a>';
+            // return href + title + text
+          }
+        }
+      },
+      // basePath: '/en/',
+      themeColor: '#1b73dd',
+      // coverpage: true,
+      // onlyCover: false,
+      // coverpage: 'README.md',
+      search: {
+        maxAge: 86400000, // Expiration time, the default one day
+        paths: 'auto',
+        placeholder: 'Type to search',
+        namespace: 'bitfront-2021',
+        // Localization
+        placeholder: {
+          '/': 'Type to search'
+        },
+
+        noData: 'No Results!',
+
+        // Localization
+        noData: {
+          '/': 'No Results'
+        },
+
+        // Headline depth, 1 - 6
+        depth: 2
+
+      },
+      themeable: {
+          readyTransition : true, // default
+          responsiveTables: true  // default
+      },
+      plugins: [
+        function(hook, vm) {
+          hook.beforeEach(function(content) {
+            return table_backslash_to_br(content)
+          });
+        }
+      ],
+      logo: 'images/BITFRONT_logo.png'
+    }
+
+
+  </script>
+  <script>
+  function table_backslash_to_br(content) {
+    // for multi-line tables
+    var startIndex = 0, endIndex = 0, table = ''
+    do {
+      startIndex = content.indexOf('\n| ', endIndex)
+      endIndex = content.indexOf('|\n\n', startIndex)
+      table = content.substring(startIndex, (endIndex == -1 ? content.length : endIndex) + 2).replace(/\\\n/g, '<br /> ')
+      // console.log("start= " + startIndex + ", end= " + endIndex + 2)
+      // console.log("here::" + table)
+      content = content.substring(0, startIndex) + table + content.substring((endIndex == -1 ? content.length: endIndex) + 1)
+      // endIndex = content.substring(0, startIndex - 1).concat(table).length
+    } while(endIndex != -1 && startIndex != -1)
+
+    return content;
+  }
+</script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+  <!-- <script src="//unpkg.com/docsify/lib/plugins/zoom-image.min.js"></script> -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <!-- <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script> -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-json.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-http.min.js"></script>
+  <!-- docsify-themeable (latest v0.x.x) -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0"></script>
+</body>
+</html>
